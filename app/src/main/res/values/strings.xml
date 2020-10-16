@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">OnlyOffice</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="connect_to_onlyoffice">Connect to ONLYOFFICE</string>
+    <string name="portal">Portal</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+</resources>
