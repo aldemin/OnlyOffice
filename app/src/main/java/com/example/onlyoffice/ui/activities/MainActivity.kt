@@ -5,7 +5,7 @@ import com.example.onlyoffice.App
 import com.example.onlyoffice.R
 import com.example.onlyoffice.mvp.presenters.MainActivityPresenter
 import com.example.onlyoffice.mvp.views.MainActivityView
-import com.example.onlyoffice.navigation.cicerone.LoginFragmentAppScreen
+import com.example.onlyoffice.common.navigation.cicerone.LoginFragmentAppScreen
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.Cicerone
@@ -32,13 +32,13 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
     }
 
     override fun onResume() {
-        cicerone.navigatorHolder.setNavigator(navigator)
         super.onResume()
+        cicerone.navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
-        cicerone.navigatorHolder.removeNavigator()
         super.onPause()
+        cicerone.navigatorHolder.removeNavigator()
     }
 
     override fun navToLoginScreen() {

@@ -1,4 +1,4 @@
-package com.example.onlyoffice.navigation.cicerone
+package com.example.onlyoffice.common.navigation.cicerone
 
 import com.example.onlyoffice.ui.fragments.LoginFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen

@@ -1,4 +1,4 @@
-package com.example.onlyoffice.navigation.cicerone
+package com.example.onlyoffice.common.navigation.cicerone
 
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router

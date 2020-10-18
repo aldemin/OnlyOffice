@@ -1,8 +1,9 @@
 package com.example.onlyoffice
 
 import android.app.Application
-import com.example.onlyoffice.di.dagger2.AppComponent
-import com.example.onlyoffice.di.dagger2.DaggerAppComponent
+import com.example.onlyoffice.common.di.dagger2.AppComponent
+import com.example.onlyoffice.common.di.dagger2.DaggerAppComponent
+import com.example.onlyoffice.common.di.dagger2.modules.ContextModule
 
 class App: Application() {
 
@@ -18,7 +19,9 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.builder()
+            .contextModule(ContextModule(this.applicationContext))
+            .build()
     }
 
 }

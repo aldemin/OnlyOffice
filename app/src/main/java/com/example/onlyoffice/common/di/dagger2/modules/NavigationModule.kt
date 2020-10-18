@@ -1,7 +1,7 @@
-package com.example.onlyoffice.di.dagger2.modules
+package com.example.onlyoffice.common.di.dagger2.modules
 
-import com.example.onlyoffice.navigation.cicerone.NavigationHolder
-import com.example.onlyoffice.navigation.cicerone.NavigationHolder.LocalCiceroneTag.APP
+import com.example.onlyoffice.common.navigation.cicerone.NavigationHolder
+import com.example.onlyoffice.common.navigation.cicerone.NavigationHolder.LocalCiceroneTag.APP
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
