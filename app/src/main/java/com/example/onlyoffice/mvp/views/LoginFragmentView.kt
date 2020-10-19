@@ -6,7 +6,7 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 interface LoginFragmentView: MvpView {
 
     @AddToEndSingle
-    fun toggleLoadingDialog(isShowing: Boolean)
+    fun toggleLoadingDialog(isShowing: Boolean, onCancel: (() -> Unit)? = null)
     @AddToEndSingle
     fun setPortalError(message: String)
     @AddToEndSingle
@@ -14,7 +14,5 @@ interface LoginFragmentView: MvpView {
     @AddToEndSingle
     fun setPasswordError(message: String)
     @AddToEndSingle
-    fun showErrorDialog(message: String)
-    @AddToEndSingle
-    fun moveToMainScreen()
+    fun showErrorDialog(header: String, message: String)
 }

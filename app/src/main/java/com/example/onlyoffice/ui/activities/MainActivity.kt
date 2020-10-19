@@ -1,11 +1,11 @@
 package com.example.onlyoffice.ui.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.example.onlyoffice.App
 import com.example.onlyoffice.R
 import com.example.onlyoffice.mvp.presenters.MainActivityPresenter
 import com.example.onlyoffice.mvp.views.MainActivityView
-import com.example.onlyoffice.common.navigation.cicerone.LoginFragmentAppScreen
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.Cicerone
@@ -41,7 +41,11 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
         cicerone.navigatorHolder.removeNavigator()
     }
 
-    override fun navToLoginScreen() {
-        cicerone.router.replaceScreen(LoginFragmentAppScreen())
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> cicerone.router.exit()
+        }
+        return super.onOptionsItemSelected(item)
     }
+
 }

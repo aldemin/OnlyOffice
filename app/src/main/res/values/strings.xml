@@ -8,8 +8,8 @@
     <string name="portalErrorMessage">Account name must be between 6 and 50 characters</string>
     <string name="loginErrorMessage">Invalid Email</string>
     <string name="passwordErrorMessage">Password must contain at least 8 characters</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="headerErrorDialog">Authorization failed</string>
     <string name="loading">Loading</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>

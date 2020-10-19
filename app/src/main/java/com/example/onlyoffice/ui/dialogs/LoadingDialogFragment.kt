@@ -28,8 +28,9 @@ class LoadingDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun initView() {
-        val onCancel: (() -> Unit)? = arguments?.getSerializable(ON_CANCEL_KEY) as () -> Unit
+        val onCancel = arguments?.getSerializable(ON_CANCEL_KEY)
         if (onCancel != null) {
+            onCancel as () -> Unit
             dialog_loading_cancel_btn.setOnClickListener{_ ->
                 onCancel.invoke()
                 dialog?.cancel()
@@ -42,12 +43,17 @@ class LoadingDialogFragment : AppCompatDialogFragment() {
 
     companion object {
 
+        const val TAG = "loading dialog"
+
         private const val ON_CANCEL_KEY = "on cancel"
 
         @JvmStatic
-        fun newInstance(onCancel: (() -> Unit)? = null) = LoadingDialogFragment().apply {
+        fun newInstance(onCancel: (() -> Unit)? = null) =
+            LoadingDialogFragment().apply {
             onCancel?.let {
-                arguments?.putSerializable(ON_CANCEL_KEY, onCancel as java.io.Serializable)
+                arguments = Bundle().apply {
+                    putSerializable(ON_CANCEL_KEY, onCancel as java.io.Serializable)
+                }
             }
         }
     }
