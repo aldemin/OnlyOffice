@@ -41,6 +41,7 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
         initProperties()
         initToolbar()
         initDrawer()
+        initViews()
     }
 
     override fun onResume() {
