@@ -13,7 +13,6 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 import javax.inject.Named
 
-@InjectViewState
 class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
     @Inject

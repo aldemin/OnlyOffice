@@ -25,7 +25,7 @@ class LoginFragmentPresenter : MvpPresenter<LoginFragmentView>() {
     lateinit var stringProvider: LoginFragmentStringProvider
 
     @Inject
-    lateinit var auth: Retrofit.Builder
+    lateinit var apiBuilder: Retrofit.Builder
 
     @Inject
     lateinit var authInfoProvider: AuthInfoProvider
@@ -39,6 +39,8 @@ class LoginFragmentPresenter : MvpPresenter<LoginFragmentView>() {
     private var isPasswordErrorShowing = false
 
     private val emptyString = ""
+
+    private var userPortalUrl = ""
 
     private val portalRegex = Regex("^[a-z0-9_-]{6,50}\$")
     private val loginRegex = Regex("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+")
@@ -57,6 +59,7 @@ class LoginFragmentPresenter : MvpPresenter<LoginFragmentView>() {
         override fun onSuccess(response: AuthorisationResponse) {
             authInfoProvider.token = response.response.token
             authInfoProvider.expires = response.response.expires
+            authInfoProvider.portal = userPortalUrl
             viewState.toggleLoadingDialog(false)
             moveToMainScreen()
         }
@@ -79,8 +82,9 @@ class LoginFragmentPresenter : MvpPresenter<LoginFragmentView>() {
 
     fun okBtnClicked(portal: String, login: String, password: String) {
         if (!isLoginErrorShowing && !isPortalErrorShowing && !isPasswordErrorShowing) {
-            val retrofit = auth
-                .baseUrl("https://$portal.onlyoffice.eu/")
+            userPortalUrl = "https://$portal.onlyoffice.eu/"
+            val retrofit = apiBuilder
+                .baseUrl(userPortalUrl)
                 .build()
                 .create(AuthAPI::class.java)
             retrofit.authorization(AuthorisationRequest(login, password))

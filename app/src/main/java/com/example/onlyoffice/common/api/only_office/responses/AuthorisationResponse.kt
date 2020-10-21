@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 
 class AuthorisationResponse(
     @Expose val status: String,
-    @Expose val response: Response
+    @Expose val response: AuthorisationResponse.Response
 ) {
 
     class Response(
