@@ -42,4 +42,6 @@ class AuthInfoProvider(context: Context) {
     fun logout() {
         sharedPreferences.edit().clear().apply()
     }
+
+    fun isAuthorization() = !token.isNullOrEmpty() || !expires.isNullOrEmpty() || !portal.isNullOrEmpty()
 }

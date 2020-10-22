@@ -1,4 +1,4 @@
-package com.example.onlyoffice.common.api.only_office.request
+package com.example.onlyoffice.model.request
 
 class AuthorisationRequest(
     val userName: String,

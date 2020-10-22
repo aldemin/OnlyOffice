@@ -2,6 +2,7 @@ package com.example.onlyoffice.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -10,7 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.onlyoffice.R
-import com.example.onlyoffice.common.api.only_office.responses.UserInfoResponse
+import com.example.onlyoffice.model.responses.UserInfoResponse
 import com.example.onlyoffice.mvp.presenters.MainFragmentPresenter
 import com.example.onlyoffice.mvp.views.MainFragmentView
 import com.example.onlyoffice.ui.activities.MainActivity
@@ -46,12 +47,12 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
 
     override fun onResume() {
         super.onResume()
-        presenter.cicerone.navigatorHolder.setNavigator(navigator)
+        presenter.mainCicerone.navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.cicerone.navigatorHolder.removeNavigator()
+        presenter.mainCicerone.navigatorHolder.removeNavigator()
     }
 
     override fun toggleHeaderLoading(isShowing: Boolean) {
@@ -60,7 +61,7 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
     }
 
     override fun updateUserInfoToHeader(userInfo: UserInfoResponse) {
-        header.fr_main_drawer_layout_header_name.text = userInfo.response.userName
+        header.fr_main_drawer_layout_header_name.text = userInfo.response.displayName
         header.fr_main_drawer_layout_header_email.text = userInfo.response.email
         Glide.with(this)
             .load(userInfo.response.avatar)
@@ -68,8 +69,15 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
             .into(header.fr_main_drawer_layout_header_avatar)
     }
 
-    override fun toggleHeaderPlaceholder(isShowing: Boolean) {
-        TODO("Not yet implemented")
+    override fun setToolbarTitle(title: String) {
+        fr_main_toolbar.title = title
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> presenter.mainCicerone.router.exit()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initToolbar() {
@@ -88,10 +96,12 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
             when (it.itemId) {
                 R.id.fr_main_nav_view_my_documents -> {
                     presenter.onMyDocumentsClicked()
+                    fr_main_drawer_layout.close()
                     true
                 }
                 R.id.fr_main_nav_view_common_documents -> {
                     presenter.onCommonDocumentsClicked()
+                    fr_main_drawer_layout.close()
                     true
                 }
                 else -> false
@@ -121,7 +131,6 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
             presenter.onLogoutClicked()
         }
     }
-
 
     companion object {
 

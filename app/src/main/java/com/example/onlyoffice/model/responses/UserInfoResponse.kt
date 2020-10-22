@@ -1,4 +1,4 @@
-package com.example.onlyoffice.common.api.only_office.responses
+package com.example.onlyoffice.model.responses
 
 import com.google.gson.annotations.Expose
 
@@ -8,7 +8,8 @@ class UserInfoResponse(
 ) {
 
     class Response(
-        @Expose val userName: String,
+        @Expose val id: String,
+        @Expose val displayName: String,
         @Expose val email: String,
         @Expose val avatar: String
     )

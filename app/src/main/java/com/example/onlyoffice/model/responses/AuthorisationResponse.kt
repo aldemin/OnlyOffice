@@ -1,4 +1,4 @@
-package com.example.onlyoffice.common.api.only_office.responses
+package com.example.onlyoffice.model.responses
 
 import com.google.gson.annotations.Expose
 

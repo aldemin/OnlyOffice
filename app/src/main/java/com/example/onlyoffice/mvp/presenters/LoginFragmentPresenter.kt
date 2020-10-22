@@ -2,8 +2,8 @@ package com.example.onlyoffice.mvp.presenters
 
 import com.example.onlyoffice.App
 import com.example.onlyoffice.common.api.only_office.AuthAPI
-import com.example.onlyoffice.common.api.only_office.request.AuthorisationRequest
-import com.example.onlyoffice.common.api.only_office.responses.AuthorisationResponse
+import com.example.onlyoffice.model.request.AuthorisationRequest
+import com.example.onlyoffice.model.responses.AuthorisationResponse
 import com.example.onlyoffice.common.navigation.cicerone.MainFragmentAppScreen
 import com.example.onlyoffice.common.providers.AuthInfoProvider
 import com.example.onlyoffice.common.providers.LoginFragmentStringProvider

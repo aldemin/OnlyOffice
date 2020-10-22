@@ -2,10 +2,15 @@ package com.example.onlyoffice.mvp.presenters
 
 import com.example.onlyoffice.App
 import com.example.onlyoffice.common.api.only_office.PeopleAPI
-import com.example.onlyoffice.common.api.only_office.responses.UserInfoResponse
+import com.example.onlyoffice.common.navigation.cicerone.DocumentsFragmentAppScreen
 import com.example.onlyoffice.common.navigation.cicerone.LoginFragmentAppScreen
 import com.example.onlyoffice.common.providers.AuthInfoProvider
+import com.example.onlyoffice.common.providers.MainFragmentStringProvider
+import com.example.onlyoffice.common.providers.UserInfoProvider
+import com.example.onlyoffice.model.responses.UserInfoResponse
 import com.example.onlyoffice.mvp.views.MainFragmentView
+import com.example.onlyoffice.ui.fragments.DocumentsFragment.Companion.ConstantDocumentsId.COMMON_DOCUMENTS_ID
+import com.example.onlyoffice.ui.fragments.DocumentsFragment.Companion.ConstantDocumentsId.MY_DOCUMENTS_ID
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -21,7 +26,7 @@ class MainFragmentPresenter : MvpPresenter<MainFragmentView>() {
 
     @Inject
     @field:Named("MainRouter")
-    lateinit var cicerone: Cicerone<Router>
+    lateinit var mainCicerone: Cicerone<Router>
 
     @Inject
     @field:Named("AppRouter")
@@ -33,6 +38,14 @@ class MainFragmentPresenter : MvpPresenter<MainFragmentView>() {
     @Inject
     lateinit var authInfoProvider: AuthInfoProvider
 
+    @Inject
+    lateinit var stringProvider: MainFragmentStringProvider
+
+    @Inject
+    lateinit var userInfoProvider: UserInfoProvider
+
+    private lateinit var peopleAPI: PeopleAPI
+
     private var userInfoDisposable: Disposable? = null
     private val userInfoObserver = object : SingleObserver<UserInfoResponse> {
 
@@ -42,21 +55,34 @@ class MainFragmentPresenter : MvpPresenter<MainFragmentView>() {
         }
 
         override fun onSuccess(response: UserInfoResponse) {
+            userInfoProvider.userInfoResponse = response
             viewState.toggleHeaderLoading(false)
             viewState.updateUserInfoToHeader(response)
         }
 
         override fun onError(e: Throwable) {
             viewState.toggleHeaderLoading(false)
-            viewState.toggleHeaderPlaceholder(true)
         }
     }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         App.instance.appComponent.inject(this)
-        onMyDocumentsClicked()
-        loadUserInfo()
+        if (authInfoProvider.isAuthorization()) {
+            initProperties()
+            onMyDocumentsClicked()
+            loadUserInfo()
+        } else {
+            appCicerone.router.replaceScreen(LoginFragmentAppScreen())
+        }
+
+    }
+
+    private fun initProperties() {
+        peopleAPI = apiBuilder
+            .baseUrl(authInfoProvider.portal)
+            .build()
+            .create(PeopleAPI::class.java)
     }
 
     override fun onDestroy() {
@@ -65,10 +91,6 @@ class MainFragmentPresenter : MvpPresenter<MainFragmentView>() {
     }
 
     private fun loadUserInfo() {
-        val peopleAPI = apiBuilder
-            .baseUrl(authInfoProvider.portal)
-            .build()
-            .create(PeopleAPI::class.java)
         peopleAPI.getUserInfo(authInfoProvider.token!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -81,10 +103,12 @@ class MainFragmentPresenter : MvpPresenter<MainFragmentView>() {
     }
 
     fun onMyDocumentsClicked() {
-
+        viewState.setToolbarTitle(stringProvider.myDocumentsToolbarTitle)
+        mainCicerone.router.newRootScreen(DocumentsFragmentAppScreen(MY_DOCUMENTS_ID.value))
     }
 
     fun onCommonDocumentsClicked() {
-
+        viewState.setToolbarTitle(stringProvider.commonDocumentsToolbarTitle)
+        mainCicerone.router.newRootScreen(DocumentsFragmentAppScreen(COMMON_DOCUMENTS_ID.value))
     }
 }

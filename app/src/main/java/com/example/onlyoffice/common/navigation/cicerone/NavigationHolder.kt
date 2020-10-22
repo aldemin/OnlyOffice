@@ -13,7 +13,7 @@ class NavigationHolder {
 
     enum class LocalCiceroneTag(val value: String) {
         APP("app"),
-        MAIN("main")
+        MAIN("main"),
     }
 
 }

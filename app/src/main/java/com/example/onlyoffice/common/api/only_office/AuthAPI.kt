@@ -1,7 +1,7 @@
 package com.example.onlyoffice.common.api.only_office
 
-import com.example.onlyoffice.common.api.only_office.request.AuthorisationRequest
-import com.example.onlyoffice.common.api.only_office.responses.AuthorisationResponse
+import com.example.onlyoffice.model.request.AuthorisationRequest
+import com.example.onlyoffice.model.responses.AuthorisationResponse
 import io.reactivex.Single
 import retrofit2.http.*
 

@@ -1,6 +1,6 @@
 package com.example.onlyoffice.common.api.only_office
 
-import com.example.onlyoffice.common.api.only_office.responses.UserInfoResponse
+import com.example.onlyoffice.model.responses.UserInfoResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers

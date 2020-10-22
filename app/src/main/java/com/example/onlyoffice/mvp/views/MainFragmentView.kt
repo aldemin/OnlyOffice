@@ -1,9 +1,8 @@
 package com.example.onlyoffice.mvp.views
 
-import com.example.onlyoffice.common.api.only_office.responses.UserInfoResponse
+import com.example.onlyoffice.model.responses.UserInfoResponse
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 interface MainFragmentView: MvpView {
     @AddToEndSingle
@@ -11,5 +10,5 @@ interface MainFragmentView: MvpView {
     @AddToEndSingle
     fun updateUserInfoToHeader(userInfo: UserInfoResponse)
     @AddToEndSingle
-    fun toggleHeaderPlaceholder(isShowing: Boolean)
+    fun setToolbarTitle(title: String)
 }
