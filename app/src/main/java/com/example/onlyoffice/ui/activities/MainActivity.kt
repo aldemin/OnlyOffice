@@ -5,6 +5,7 @@ import android.view.MenuItem
 import com.example.onlyoffice.R
 import com.example.onlyoffice.mvp.presenters.MainActivityPresenter
 import com.example.onlyoffice.mvp.views.MainActivityView
+import com.example.onlyoffice.ui.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.Navigator
@@ -30,11 +31,14 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
         presenter.cicerone.navigatorHolder.removeNavigator()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            android.R.id.home -> presenter.cicerone.router.exit()
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.ac_main_container)
+        if (fragment != null && fragment is BackButtonListener
+            && (fragment as BackButtonListener).onBackPressed()) {
+            return
+        } else {
+            super.onBackPressed()
         }
-        return super.onOptionsItemSelected(item)
     }
 
 }

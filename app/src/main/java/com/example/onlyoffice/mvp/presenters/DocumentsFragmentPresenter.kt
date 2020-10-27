@@ -118,7 +118,10 @@ class DocumentsFragmentPresenter(
                     .subscribe(filesObserver)
             }
             ERROR_ID.value -> {
-                TODO()
+                viewState.showErrorDialog(
+                    stringProvider.errorHeader,
+                    stringProvider.unknownError
+                )
             }
             else -> {
                 filesAPI.getFileById(

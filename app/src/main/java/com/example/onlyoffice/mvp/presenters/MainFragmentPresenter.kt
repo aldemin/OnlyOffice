@@ -111,4 +111,9 @@ class MainFragmentPresenter : MvpPresenter<MainFragmentView>() {
         viewState.setToolbarTitle(stringProvider.commonDocumentsToolbarTitle)
         mainCicerone.router.newRootScreen(DocumentsFragmentAppScreen(COMMON_DOCUMENTS_ID.value))
     }
+
+    fun onBackPressed(): Boolean {
+        mainCicerone.router.exit()
+        return true
+    }
 }

@@ -14,6 +14,7 @@ import com.example.onlyoffice.R
 import com.example.onlyoffice.model.responses.UserInfoResponse
 import com.example.onlyoffice.mvp.presenters.MainFragmentPresenter
 import com.example.onlyoffice.mvp.views.MainFragmentView
+import com.example.onlyoffice.ui.BackButtonListener
 import com.example.onlyoffice.ui.activities.MainActivity
 import kotlinx.android.synthetic.main.fr_main_nav_view_header.view.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -21,7 +22,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
-class MainFragment : MvpAppCompatFragment(), MainFragmentView {
+class MainFragment : MvpAppCompatFragment(), MainFragmentView, BackButtonListener {
 
     private lateinit var toolbar: Toolbar
 
@@ -79,6 +80,8 @@ class MainFragment : MvpAppCompatFragment(), MainFragmentView {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() = presenter.onBackPressed()
 
     private fun initToolbar() {
         toolbar = fr_main_toolbar

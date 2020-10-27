@@ -15,6 +15,8 @@ import com.example.onlyoffice.common.list_adapters.adapters.FileAdapter
 import com.example.onlyoffice.common.list_adapters.adapters.FolderAdapter
 import com.example.onlyoffice.mvp.presenters.DocumentsFragmentPresenter
 import com.example.onlyoffice.mvp.views.DocumentsFragmentView
+import com.example.onlyoffice.ui.BackButtonListener
+import com.example.onlyoffice.ui.dialogs.MessageDialogFragment
 import kotlinx.android.synthetic.main.fragment_documents.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -51,7 +53,11 @@ class DocumentsFragment : MvpAppCompatFragment(), DocumentsFragmentView {
     }
 
     override fun showErrorDialog(header: String, message: String) {
-        TODO()
+        activity?.supportFragmentManager?.let {fragmentManager ->
+            val dialog = MessageDialogFragment.newInstance(header, message)
+            dialog.isCancelable = false
+            dialog.show(fragmentManager, MessageDialogFragment.TAG)
+        }
     }
 
     override fun toggleLoading(isShowing: Boolean) {

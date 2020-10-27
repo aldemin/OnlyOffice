@@ -15,6 +15,8 @@ class LoginFragmentStringProvider(private val context: Context) {
 class DocumentsFragmentStringProvider(private val context: Context) {
 
     val headerLoadingFilesErrorMessage = context.getString(R.string.headerLoadingFilesErrorMessage)
+    val errorHeader = context.getString(R.string.errorHeader)
+    val unknownError = context.getString(R.string.unknownError)
 
 }
 
